@@ -54,7 +54,11 @@ export default function ContactPage() {
         lede="Call, email or send the form below. A few photographs and a description of how your piece behaves are all we need to give you an honest first opinion."
         crumbs={[{ label: "Contact" }]}
         image="cta"
-        note={{ title: "Free written estimates", text: "No work starts without your approval" }}
+        facts={[
+          { value: "1 day", label: "Reply to every enquiry" },
+          { value: "Free", label: "Written estimates" },
+          { value: "Shropshire", label: "Collection and delivery" },
+        ]}
       />
 
       <section className="section section--tight" aria-label="Ways to reach us">

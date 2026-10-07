@@ -59,7 +59,7 @@
 
   --wrap: 1260px;
   --gutter: clamp(16px, 4vw, 44px);
-  --section: clamp(76px, 9.5vw, 136px);
+  --section: clamp(52px, 5vw, 76px);
   --header-h: 84px;
 }
 
@@ -192,7 +192,13 @@ main {
 .section--enamel {
   background: var(--enamel);
 }
-.section + .section--flush {
+/* Two plain sections in a row share one gap instead of stacking two */
+.section:not(.section--linen, .section--enamel, .stats-band) + .section:not(.section--linen, .section--enamel, .stats-band) {
+  padding-top: 0;
+}
+/* Same for two linen or two enamel sections in a row */
+.section--linen + .section--linen,
+.section--enamel + .section--enamel {
   padding-top: 0;
 }
 
@@ -578,9 +584,6 @@ p {
 .photo__img {
   object-fit: cover;
 }
-.photo--arch {
-  border-radius: 999px 999px var(--r-lg) var(--r-lg);
-}
 
 /* --------------------------------------------------------------- scroll progress */
 .scroll-progress {
@@ -636,14 +639,6 @@ p {
 }
 .motion [data-reveal="photo"]:not(.is-in) .photo__img {
   transform: scale(1.14);
-}
-.motion .photo--arch[data-reveal="photo"].is-in,
-.motion .photo--arch[data-reveal="photo"]:not(.is-in) {
-  clip-path: none;
-}
-.motion .photo--arch[data-reveal="photo"]:not(.is-in) {
-  opacity: 0;
-  transform: translate3d(0, 40px, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

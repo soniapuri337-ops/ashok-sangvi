@@ -1,28 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import type { ImageKey } from "@/content/images";
+import { images, type ImageKey } from "@/content/images";
 import { site } from "@/content/site";
 import { timing, type Service } from "@/content/services";
 import { Check, HoroIcon, Phone } from "./Icons";
+import { Parallax } from "./Motion";
 import { Button, Eyebrow, Photo } from "./Primitives";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
-/* Ring of minute ticks used behind inner page imagery */
-export function TrackRing({ className = "" }: { className?: string }) {
-  return (
-    <svg className={`track-ring ${className}`} viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-      <circle cx="100" cy="100" r="99" />
-      <circle cx="100" cy="100" r="86" />
-      {Array.from({ length: 60 }).map((_, i) => (
-        <line key={i} x1="100" y1="1" x2="100" y2={i % 5 === 0 ? 14 : 8} transform={`rotate(${i * 6} 100 100)`} />
-      ))}
-    </svg>
-  );
-}
-
 type Crumb = { label: string; href?: string };
+export type Fact = { value: string; label: string };
 
+const defaultFacts: Fact[] = [
+  { value: "Free", label: "Written estimates" },
+  { value: "12 months", label: "Guarantee on overhauls" },
+  { value: `Since ${site.founded}`, label: "At the bench in Shrewsbury" },
+];
+
+/* Inner page opening: title and intro side by side, then a wide banner with key facts */
 export function PageHero({
   eyebrow,
   title,
@@ -30,7 +27,7 @@ export function PageHero({
   crumbs,
   image,
   children,
-  note,
+  facts = defaultFacts,
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -38,50 +35,55 @@ export function PageHero({
   crumbs: Crumb[];
   image: ImageKey;
   children?: ReactNode;
-  note?: { title: string; text: string };
+  facts?: Fact[];
 }) {
+  const img = images[image];
   return (
     <section className="page-hero">
-      <div className="wrap page-hero__grid">
-        <div className="page-hero__text">
-          <nav aria-label="Breadcrumb" className="crumbs">
-            <ol>
-              <li>
-                <Link href="/">Home</Link>
+      <div className="wrap">
+        <nav aria-label="Breadcrumb" className="crumbs">
+          <ol>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            {crumbs.map((c) => (
+              <li key={c.label}>
+                {c.href ? <Link href={c.href}>{c.label}</Link> : <span aria-current="page">{c.label}</span>}
               </li>
-              {crumbs.map((c) => (
-                <li key={c.label}>
-                  {c.href ? <Link href={c.href}>{c.label}</Link> : <span aria-current="page">{c.label}</span>}
-                </li>
-              ))}
-            </ol>
-          </nav>
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="h1 page-hero__title">{title}</h1>
-          <p className="lede page-hero__lede">{lede}</p>
-          {children && <div className="page-hero__actions">{children}</div>}
+            ))}
+          </ol>
+        </nav>
+        <div className="page-hero__head">
+          <div className="page-hero__main">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h1 className="h1 page-hero__title">{title}</h1>
+          </div>
+          <div className="page-hero__side">
+            <p className="lede page-hero__lede">{lede}</p>
+            {children && <div className="page-hero__actions">{children}</div>}
+          </div>
         </div>
-        <div className="page-hero__media">
-          <TrackRing className="page-hero__ring" />
-          <Photo id={image} className="photo--arch page-hero__photo" priority sizes="(max-width: 900px) 90vw, 460px" />
-          {note && (
-            <div className="page-hero__note">
-              <span className="page-hero__note-icon">
-                <Check size={18} />
-              </span>
-              <span>
-                <strong>{note.title}</strong>
-                {note.text}
-              </span>
-            </div>
-          )}
+        <div className="page-hero__banner">
+          <div className="page-hero__frame">
+            <Parallax className="page-hero__media" speed={0.08}>
+              <Image src={img.src} alt={img.alt} fill priority sizes="(max-width: 1340px) 100vw, 1260px" className="page-hero__img" />
+            </Parallax>
+          </div>
+          <ul className="page-hero__facts">
+            {facts.map((f) => (
+              <li key={f.label}>
+                <span className="page-hero__fact-value">{f.value}</span>
+                <span className="page-hero__fact-label">{f.label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
   );
 }
 
-/* Closing call to action with an arched photograph */
+/* Closing call to action: copy on the left, full height photograph on the right */
 export function CtaPanel({
   title,
   text,
@@ -91,14 +93,23 @@ export function CtaPanel({
   text: string;
   image?: ImageKey;
 }) {
+  const img = images[image];
   return (
     <section className="section cta">
       <div className="wrap">
-        <div className="cta__panel">
-          <div className="cta__text" data-reveal="up">
+        <div className="cta__panel" data-reveal="up">
+          <div className="cta__text">
             <Eyebrow>Book a repair</Eyebrow>
             <h2 className="h2">{title}</h2>
             <p className="lede">{text}</p>
+            <ul className="cta__points">
+              {["Free written estimate", "Collection across Shropshire", "Twelve month guarantee"].map((t) => (
+                <li key={t}>
+                  <Check size={16} />
+                  {t}
+                </li>
+              ))}
+            </ul>
             <div className="cta__actions">
               <Button href="/contact">Request an estimate</Button>
               <a href={site.phoneHref} className="cta__phone">
@@ -113,8 +124,7 @@ export function CtaPanel({
             </div>
           </div>
           <div className="cta__media">
-            <TrackRing className="cta__ring" />
-            <Photo id={image} className="photo--arch cta__photo" sizes="(max-width: 900px) 80vw, 380px" />
+            <Image src={img.src} alt={img.alt} fill sizes="(max-width: 900px) 100vw, 45vw" className="cta__img" />
           </div>
         </div>
       </div>

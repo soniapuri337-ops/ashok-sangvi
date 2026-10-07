@@ -266,10 +266,11 @@ export default function HomePage() {
           <div className="why__grid">
             <div className="why__media" data-reveal="left">
               <Photo id="loupe" className="why__photo" reveal={false} sizes="(max-width: 900px) 100vw, 40vw" />
-              <div className="why__badge">
-                <LiveDial size={64} showStatus={false} />
+              <div className="why__stat">
+                <span className="why__stat-num">12</span>
                 <span>
-                  <strong>Twelve month</strong> guarantee on every overhaul
+                  <strong>Month guarantee</strong>
+                  On every full overhaul, from the day your piece comes home.
                 </span>
               </div>
             </div>
@@ -343,22 +344,30 @@ export default function HomePage() {
               Turret clock care
             </Button>
           </div>
-          <div className="band__round" data-reveal="scale" style={d(200)}>
-            <svg className="band__ring" viewBox="0 0 200 200" aria-hidden="true">
-              {Array.from({ length: 60 }).map((_, i) => (
-                <line
-                  key={i}
-                  x1="100"
-                  y1="2"
-                  x2="100"
-                  y2={i % 5 === 0 ? 10 : 6}
-                  transform={`rotate(${i * 6} 100 100)`}
-                />
-              ))}
-            </svg>
-            <div className="band__circle">
-              <Image src={images.workChurch.src} alt={images.workChurch.alt} fill sizes="320px" />
+          <div className="band__card" data-reveal="up" style={d(160)}>
+            <div className="band__card-head">
+              <span className="band__card-icon">
+                <HoroIcon name="turret" size={40} />
+              </span>
+              <div>
+                <p className="band__card-kicker">Annual care contract</p>
+                <p className="band__card-price">From £320 a year</p>
+              </div>
             </div>
+            <ul className="band__card-list">
+              {[
+                "One or two visits a year to clean, oil and adjust",
+                "Clock set for British Summer Time",
+                "Written condition log for the council",
+                "Priority call outs if the clock stops",
+              ].map((t) => (
+                <li key={t}>
+                  <Check size={16} />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <p className="band__card-note">Serving parishes, estates and civic buildings across {site.county}.</p>
           </div>
         </div>
       </section>

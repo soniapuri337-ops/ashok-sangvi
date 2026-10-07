@@ -607,6 +607,9 @@
   gap: 28px;
   padding: 22px 0;
 }
+.step:last-child {
+  padding-bottom: 0;
+}
 .step__num {
   position: relative;
   z-index: 1;
@@ -670,36 +673,55 @@
 .why__media {
   position: relative;
   border-radius: var(--r-xl);
-  background: var(--teal-700);
-  padding: 18px 18px 0;
   overflow: hidden;
-  min-height: 480px;
+  min-height: 500px;
+  background: var(--teal-800);
 }
 .why__photo {
   position: absolute;
-  inset: 18px 18px 0 18px;
-  border-radius: 999px 999px 0 0;
+  inset: 0;
+  border-radius: 0;
 }
-.why__badge {
+.why__photo .photo__img {
+  transition: transform 1.4s var(--ease-out);
+}
+.why__media:hover .why__photo .photo__img {
+  transform: scale(1.04);
+}
+.why__stat {
   position: absolute;
-  left: 34px;
-  right: 34px;
-  bottom: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 18px;
-  border-radius: var(--r-md);
-  background: var(--enamel);
-  box-shadow: var(--sh-2);
-  font-size: 0.92rem;
-  line-height: 1.4;
-  color: var(--ink-2);
+  align-items: flex-end;
+  gap: 18px;
+  padding: 80px clamp(22px, 3vw, 34px) clamp(22px, 3vw, 30px);
+  background: linear-gradient(0deg, rgba(10, 44, 49, 0.94) 0%, rgba(10, 44, 49, 0.7) 55%, rgba(10, 44, 49, 0) 100%);
+  color: rgba(255, 252, 246, 0.8);
+  font-size: 0.94rem;
+  line-height: 1.5;
 }
-.why__badge strong {
+.why__stat strong {
   display: block;
-  color: var(--ink);
-  font-size: 1.02rem;
+  font-size: 1.08rem;
+  color: var(--enamel);
+}
+.why__stat-num {
+  font-family: var(--f-display);
+  font-size: 4rem;
+  line-height: 0.85;
+  color: var(--brass-300);
+}
+.why__stat-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(207, 170, 110, 0.6);
+  color: var(--brass-300);
 }
 .why__card {
   border-radius: var(--r-xl);
@@ -842,37 +864,68 @@
   max-width: 50ch;
   color: rgba(255, 252, 246, 0.82);
 }
-.band__round {
-  position: relative;
-  justify-self: center;
-  width: min(380px, 80vw);
-  aspect-ratio: 1;
-}
-.band__ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  stroke: var(--brass-300);
-  stroke-width: 1;
-  animation: spin 120s linear infinite;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.band__circle {
-  position: absolute;
-  inset: 8%;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 6px solid var(--enamel);
+.band__card {
+  justify-self: end;
+  width: min(440px, 100%);
+  padding: clamp(26px, 3vw, 36px);
+  border-radius: var(--r-lg);
+  background: var(--enamel);
+  color: var(--ink);
   box-shadow: var(--sh-3);
-  background: var(--teal-800);
 }
-.band__circle img {
-  object-fit: cover;
+.band__card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.band__card-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--teal-900);
+  color: var(--brass-300);
+}
+.band__card-kicker {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass-700);
+}
+.band__card-price {
+  font-family: var(--f-display);
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: var(--teal-900);
+}
+.band__card-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.band__card-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+.band__card-list svg {
+  flex: none;
+  margin-top: 4px;
+  color: var(--olive-700);
+}
+.band__card-note {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 0.86rem;
+  color: var(--ink-3);
 }
 
 /* --------------------------------------------------------------- reviews */
@@ -1139,6 +1192,12 @@
   .showcase__cols {
     grid-template-columns: 1fr;
   }
+  .hero__frame {
+    min-height: auto;
+  }
+  .hero__content {
+    padding-bottom: 36px;
+  }
   .hero__dock {
     flex-direction: column;
   }
@@ -1151,8 +1210,9 @@
   .why__media {
     min-height: 420px;
   }
-  .band__round {
-    width: min(300px, 70vw);
+  .band__card {
+    justify-self: stretch;
+    width: 100%;
   }
 }
 @media (max-width: 720px) {

@@ -41,7 +41,11 @@ export default async function ServicePage({ params }: Props) {
         lede={s.lede}
         crumbs={[{ label: "Services", href: "/services" }, { label: s.title }]}
         image={s.image}
-        note={{ title: s.priceFrom, text: timing(s) }}
+        facts={[
+          { value: s.priceFrom.replace(/^.* from /, "From "), label: "Guide price" },
+          { value: s.turnaround, label: "Typical time" },
+          { value: "12 months", label: "Guarantee" },
+        ]}
       >
         <Button href={`/contact?service=${s.slug}#enquiry`}>Request an estimate</Button>
         <Button href={site.phoneHref} variant="outline" icon="up">

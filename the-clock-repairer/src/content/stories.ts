@@ -49,19 +49,32 @@ export const team = [
 
 export type WorkCategory = "Clocks" | "Pocket watches" | "Turret clocks" | "Wristwatches";
 
-export const work: {
+export type WorkItem = {
   title: string;
   category: WorkCategory;
   image: ImageKey;
   place: string;
+  year: string;
+  duration: string;
   summary: string;
   tasks: string[];
-}[] = [
+};
+
+export const workService: Record<WorkCategory, string> = {
+  Clocks: "clock-repairs",
+  "Pocket watches": "pocket-watch-repairs",
+  "Turret clocks": "turret-clock-repairs",
+  Wristwatches: "watch-repairs",
+};
+
+export const work: WorkItem[] = [
   {
     title: "Georgian eight day longcase",
     category: "Clocks",
     image: "workLongcase",
     place: "Church Stretton",
+    year: "2025",
+    duration: "7 weeks",
     summary: "Silent for eleven years. Full overhaul, two new pivots and a rebuilt strike.",
     tasks: ["Strip down and clean", "Rebushing", "Strike rebuilt"],
   },
@@ -70,6 +83,8 @@ export const work: {
     category: "Pocket watches",
     image: "workHunter",
     place: "Oswestry",
+    year: "2025",
+    duration: "4 weeks",
     summary: "New balance staff turned by hand, hinge pinned and case spring adjusted.",
     tasks: ["Balance staff", "Case repair", "Service"],
   },
@@ -78,6 +93,8 @@ export const work: {
     category: "Turret clocks",
     image: "workChurch",
     place: "Near Ludlow",
+    year: "2024",
+    duration: "3 site visits",
     summary: "Flatbed movement restored on site and fitted with automatic winding.",
     tasks: ["Restoration", "Auto winding", "Annual contract"],
   },
@@ -86,6 +103,8 @@ export const work: {
     category: "Wristwatches",
     image: "workAutomatic",
     place: "Shrewsbury",
+    year: "2025",
+    duration: "3 weeks",
     summary: "Full service, new crown and seals, timed in five positions.",
     tasks: ["Service", "Crown and seals", "Regulation"],
   },
@@ -94,6 +113,8 @@ export const work: {
     category: "Clocks",
     image: "workBracket",
     place: "Much Wenlock",
+    year: "2024",
+    duration: "6 weeks",
     summary: "Fusee chain replaced and the verge escapement brought back to a clean beat.",
     tasks: ["Fusee chain", "Verge escapement", "Case waxed"],
   },
@@ -102,6 +123,8 @@ export const work: {
     category: "Pocket watches",
     image: "workRailway",
     place: "Telford",
+    year: "2025",
+    duration: "5 weeks",
     summary: "Mainspring, jewel and enamel dial care, with the original issue markings kept.",
     tasks: ["Mainspring", "Jewelling", "Dial care"],
   },
@@ -110,6 +133,8 @@ export const work: {
     category: "Turret clocks",
     image: "workEstate",
     place: "Bridgnorth",
+    year: "2024",
+    duration: "10 weeks",
     summary: "Cupola dial regilded and the movement restored after thirty years at rest.",
     tasks: ["Dial gilding", "Movement restored", "Seasonal servicing"],
   },
@@ -118,6 +143,8 @@ export const work: {
     category: "Clocks",
     image: "workCarriage",
     place: "Bridgnorth",
+    year: "2025",
+    duration: "5 weeks",
     summary: "Platform escapement serviced, repeat work set up and two glasses replaced.",
     tasks: ["Platform service", "Repeat work", "Glasses"],
   },
@@ -153,3 +180,30 @@ export const consultancy = {
     { title: "Work to minimum intervention", text: "keeping as much original material as possible." },
   ],
 };
+
+/* The restoration shown in full at the top of the Our Work page */
+export const featuredWork = {
+  ...work[0],
+  piece: "Eight day longcase clock, painted dial, oak case",
+  brief:
+    "The clock had stood silent in a farmhouse hall for eleven years. The strike had jammed, two pivots were badly worn and the seat board had split, so the movement no longer sat level in its case.",
+  steps: [
+    "Movement dismantled at the house and carried to the bench in a fitted crate",
+    "Every wheel and plate cleaned, pivots polished and two new pivots fitted",
+    "Worn holes rebushed and the jammed strike rebuilt and set up",
+    "New oak seat board made to match the original",
+    "Tested for a week, then set in beat and regulated in the hall",
+  ],
+  quote: {
+    text: "It now strikes the hours exactly as my grandmother remembered, and it sits perfectly in beat on our uneven floor.",
+    name: "Margaret Holloway",
+    place: "Church Stretton",
+  },
+};
+
+export const recordSteps = [
+  { title: "Arrival photographs", text: "Every piece is photographed and its condition noted the moment it reaches us.", icon: "loupe" as const },
+  { title: "Inspection report", text: "A written estimate with pictures of what we found inside the movement.", icon: "report" as const },
+  { title: "Bench record", text: "Each stage of the work logged, with the parts we repaired or made.", icon: "wheel" as const },
+  { title: "Handover pack", text: "Care notes, winding advice and the guarantee, kept with your piece.", icon: "contract" as const },
+];

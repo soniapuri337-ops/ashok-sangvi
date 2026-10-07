@@ -29,7 +29,11 @@ export default function ServicesPage() {
         lede="Four specialisms under one roof, each handled by a clockmaker or watchmaker who knows your kind of piece. Every job starts with a free written estimate."
         crumbs={[{ label: "Services" }]}
         image="serviceClock"
-        note={{ title: "Free estimates", text: "Agreed in writing before work starts" }}
+        facts={[
+          { value: "Free", label: "Written estimates" },
+          { value: "12 months", label: "Guarantee on overhauls" },
+          { value: "Shropshire", label: "Collection and delivery" },
+        ]}
       >
         <Button href="/contact">Request an estimate</Button>
       </PageHero>

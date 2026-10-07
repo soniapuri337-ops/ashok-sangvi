@@ -115,6 +115,7 @@ a:hover .logo-mark--live .logo-mark__hour {
   transform: translate3d(0, -100%, 0);
 }
 .site-header__inner {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 28px;
@@ -145,7 +146,6 @@ a:hover .logo-mark--live .logo-mark__hour {
   gap: 2px;
 }
 .nav__item {
-  position: relative;
   display: flex;
   align-items: center;
 }
@@ -216,12 +216,14 @@ a:hover .logo-mark--live .logo-mark__hour {
 }
 
 /* mega menu */
+/* Anchored to the header row, not the link, so it can never run off screen */
 .mega {
   position: absolute;
-  top: calc(100% + 14px);
-  left: 50%;
-  width: min(880px, 92vw);
-  translate: -38% 0;
+  top: calc(100% - 14px);
+  left: var(--gutter);
+  right: var(--gutter);
+  max-width: 960px;
+  margin-inline: auto;
   opacity: 0;
   visibility: hidden;
   transform: translate3d(0, 10px, 0);
@@ -233,8 +235,10 @@ a:hover .logo-mark--live .logo-mark__hour {
 .mega::before {
   content: "";
   position: absolute;
-  inset: -16px 0 auto 0;
-  height: 16px;
+  top: -22px;
+  left: 0;
+  width: 60%;
+  height: 22px;
 }
 .nav__item--mega.is-open .mega {
   opacity: 1;
@@ -638,7 +642,7 @@ a:hover .logo-mark--live .logo-mark__hour {
   overflow: hidden;
   background: var(--teal-950);
   color: rgba(255, 252, 246, 0.74);
-  padding-top: clamp(56px, 7vw, 92px);
+  padding-top: clamp(40px, 4.4vw, 64px);
   font-size: 0.96rem;
 }
 .footer__track {

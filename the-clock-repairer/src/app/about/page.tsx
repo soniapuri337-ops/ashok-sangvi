@@ -31,7 +31,11 @@ export default function AboutPage() {
         lede={`Since ${site.founded} we have looked after the clocks and watches of ${site.county}, from farmhouse longcases to the tower clocks of parish churches.`}
         crumbs={[{ label: "About" }]}
         image="about"
-        note={{ title: `Since ${site.founded}`, text: "Four benches, one standard of care" }}
+        facts={[
+          { value: `${site.founded}`, label: "At the bench since" },
+          { value: "4", label: "Clockmakers and watchmakers" },
+          { value: "7 days", label: "Testing on every piece" },
+        ]}
       >
         <Button href="/contact">Talk to the workshop</Button>
         <Button href="/our-work" variant="outline" icon="up">

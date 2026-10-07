@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { CtaPanel, PageHero } from "@/components/Blocks";
 import { Check, HoroIcon } from "@/components/Icons";
-import { LiveDial } from "@/components/LiveDial";
 import { ArrowDisc, Button, Photo, SectionHead, SplitHead } from "@/components/Primitives";
 import type { IconName } from "@/content/services";
 import { consultancy } from "@/content/stories";
@@ -41,7 +40,11 @@ export default function ConsultancyPage() {
         lede="Clocks are works of art and working machines at the same time. We help owners decide how to care for them, what they are worth and what work, if any, they need."
         crumbs={[{ label: "Consultancy" }]}
         image="consult"
-        note={{ title: "Independent advice", text: "No obligation to use our repair service" }}
+        facts={[
+          { value: "Independent", label: "No obligation to use our repairs" },
+          { value: "Written", label: "Reports with photographs" },
+          { value: "Plain English", label: "For owners, councils and insurers" },
+        ]}
       >
         <Button href="/contact?service=consultancy#enquiry">Arrange a consultation</Button>
       </PageHero>
@@ -97,12 +100,15 @@ export default function ConsultancyPage() {
             text="As the owner or custodian you decide whether a clock should be kept running or preserved at rest, and whether worn parts should be repaired or replaced. We help you make that choice with the facts in front of you."
           />
           <div className="why__grid">
-            <div className="why__media why__media--brass" data-reveal="left">
+            <div className="why__media" data-reveal="left">
               <Photo id="loupe" className="why__photo" reveal={false} sizes="(max-width: 900px) 100vw, 40vw" />
-              <div className="why__badge">
-                <LiveDial size={64} showStatus={false} />
+              <div className="why__stat">
+                <span className="why__stat-icon">
+                  <HoroIcon name="loupe" size={34} />
+                </span>
                 <span>
-                  <strong>Minimum intervention</strong> keeping original material wherever possible
+                  <strong>Minimum intervention</strong>
+                  Original material kept wherever it can be.
                 </span>
               </div>
             </div>

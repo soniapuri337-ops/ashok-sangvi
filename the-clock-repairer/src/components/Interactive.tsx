@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
-import { images } from "@/content/images";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
-import type { WorkCategory } from "@/content/stories";
-import { work } from "@/content/stories";
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, Check, Plus } from "./Icons";
 import { Stars } from "./Primitives";
 
@@ -249,55 +245,6 @@ export function QuoteBar() {
         <ArrowRight size={18} />
       </button>
     </form>
-  );
-}
-
-/* ---------- Our Work gallery ---------- */
-const CATS: ("All" | WorkCategory)[] = ["All", "Clocks", "Pocket watches", "Turret clocks", "Wristwatches"];
-
-export function WorkGallery() {
-  const [cat, setCat] = useState<(typeof CATS)[number]>("All");
-  const list = cat === "All" ? work : work.filter((w) => w.category === cat);
-  return (
-    <div className="work">
-      <div className="filters" role="group" aria-label="Filter by type">
-        {CATS.map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`filters__btn${cat === c ? " is-active" : ""}`}
-            aria-pressed={cat === c}
-            onClick={() => setCat(c)}
-          >
-            {c}
-            <span className="filters__count">{c === "All" ? work.length : work.filter((w) => w.category === c).length}</span>
-          </button>
-        ))}
-      </div>
-      <ul className="work__grid" aria-live="polite">
-        {list.map((w, i) => {
-          const img = images[w.image];
-          return (
-            <li key={`${cat}-${w.title}`} className="work-card" style={{ "--i": i } as React.CSSProperties}>
-              <div className="work-card__media">
-                <Image src={img.src} alt={img.alt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" />
-                <span className="work-card__cat">{w.category}</span>
-              </div>
-              <div className="work-card__body">
-                <p className="work-card__place">{w.place}</p>
-                <h3 className="work-card__title">{w.title}</h3>
-                <p className="work-card__text">{w.summary}</p>
-                <ul className="work-card__tasks">
-                  {w.tasks.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
   );
 }
 
